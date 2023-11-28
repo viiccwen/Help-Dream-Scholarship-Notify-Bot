@@ -1,24 +1,27 @@
-import telegram
-import asyncio
+import requests
 import os
-from crawler import get
+from bs4 import BeautifulSoup
 
-bot_token = os.environ.get('TELEGRAM_BOT_TOKEN')
-message_text = get()
-processed_ids = set()
+def get():
+    url = 'https://www.edu.tw/helpdreams/Grants.aspx?n=2BBF7170197CE7D3&sms=0A01A72AAB9E5CD4'
+    web = requests.get(url)
+    soup = BeautifulSoup(web.text, "html.parser")
+    table = soup.find('table', id='ContentPlaceHolder1_gvIndex')
+    items = table.find_all('a')
+    req = []
 
-async def main():
-    bot = telegram.Bot(bot_token)
-    async with bot:
-        updates = await bot.get_updates()
+    for item in items:
+        title = item.text
+        addr = "https://www.edu.tw/helpdreams/" + item['href']
+        
+        req.append(title + '\n' + addr)
 
-        for update in updates:
-            user = update.message.chat
-            user_id = user.id
-            if user_id not in processed_ids:
-                processed_ids.add(user_id)
-                await bot.send_message(text=message_text, chat_id=user_id)
-
-
+    return req
+            
 if __name__ == '__main__':
-    asyncio.run(main())
+    bot_token = os.environ.get('TELEGRAM_BOT_TOKEN')
+    user_id = os.environ.get('USER_ID')
+    messages = get() 
+    for message in messages:
+        url = f"https://api.telegram.org/bot{bot_token}/sendMessage?chat_id={user_id}&text={message}"
+        requests.get(url)

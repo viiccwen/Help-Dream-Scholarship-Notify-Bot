@@ -1,6 +1,7 @@
 name: Help Dream Scholarship Notify Bot
 
 on:
+  workflow_dispatch:
   schedule:
     - cron: "*/5 * * * *"
 

@@ -2,7 +2,7 @@ name: Help Dream Scholarship Notify Bot
 
 on:
   schedule:
-    - cron: "0 0 * * *"
+    - cron: "*/5 * * * *"
 
 jobs:
   build:

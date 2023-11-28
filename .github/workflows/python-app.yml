@@ -23,3 +23,4 @@ jobs:
       run: python main.py
       env:
         TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+        USER_ID: ${{ secrets.USER_ID }}

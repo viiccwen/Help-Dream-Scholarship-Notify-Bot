@@ -17,8 +17,11 @@
 原本想說架在Google Cloud Platform，用Cloud Function跟Cloud Scheduler完成cronjob，但也是一直卡，用了六七個小時，最後只好含淚放棄QWQ，等我知識點到了再去接觸。
 
 ## 更新 Updates
-### v0.0.1 ~ v0.0.3
+### v0.0.1 ~ v0.0.2
 嘗試不同寫法、修正程式清晰度
+### v0.0.3
+加入`Github Action`，在每天8:00 A.M.會自動推播
+> 但`Github Action`存在延遲，通常會在9:14 A.M.左右推播
 
 ### v0.0.4
 沒注意到字串中的`&`會導致URL送request被切斷，已修正

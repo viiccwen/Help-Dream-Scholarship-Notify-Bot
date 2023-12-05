@@ -13,7 +13,8 @@ def get():
     for item in items:
         title = item.text
         addr = "https://www.edu.tw/helpdreams/" + item['href']
-        
+        addr = addr.replace('&', '\\&')
+
         req.append(title + '\n' + addr)
 
     return req
@@ -21,7 +22,7 @@ def get():
 if __name__ == '__main__':
     bot_token = os.environ.get('TELEGRAM_BOT_TOKEN')
     user_id = os.environ.get('USER_ID')
-    messages = get() 
+    messages = get()
     for message in messages:
         url = f"https://api.telegram.org/bot{bot_token}/sendMessage?chat_id={user_id}&text={message}"
         requests.get(url)

@@ -1,6 +1,7 @@
 import requests
 import os
 from bs4 import BeautifulSoup
+from urllib.parse import quote
 
 def get():
     url = 'https://www.edu.tw/helpdreams/Grants.aspx?n=2BBF7170197CE7D3&sms=0A01A72AAB9E5CD4'
@@ -12,8 +13,7 @@ def get():
 
     for item in items:
         title = item.text
-        addr = "https://www.edu.tw/helpdreams/" + item['href']
-        addr = addr.replace('&', '\\&')
+        addr =  quote("https://www.edu.tw/helpdreams/" + item['href'])
 
         req.append(title + '\n' + addr)
 
